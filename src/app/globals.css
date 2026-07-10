@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-base text-ink font-body antialiased;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      theme("backgroundImage.mesh-glow");
+    background-size: 48px 48px, 48px 48px, auto;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(110, 91, 255, 0.35);
+  }
+
+  /* Slim, brand-tinted scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0e17;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #6e5bff, #22d3ee);
+    border-radius: 8px;
+  }
+
+  /* Visible keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid #6e5bff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Typography hierarchy refinements — tighter tracking on large display
+     type, balanced wrapping on headings, comfortable measure on body copy */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Core glassmorphism surface used across cards, nav, panels */
+  .glass {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-line;
+  }
+
+  .glass-strong {
+    @apply bg-white/[0.07] backdrop-blur-2xl border border-line-strong;
+  }
+
+  /* Gradient text for headlines / emphasis words */
+  .text-signal {
+    @apply bg-signal-gradient bg-clip-text text-transparent;
+    background-size: 200% 200%;
+  }
+
+  .text-signal-animated {
+    @apply text-signal animate-gradient-pan;
+  }
+
+  /* Eyebrow / label style used above section headings */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent-cyan;
+  }
+
+  /* Section container rhythm */
+  .section {
+    @apply py-20 md:py-28 px-6 md:px-10;
+  }
+
+  .section-inner {
+    @apply mx-auto max-w-content;
+  }
+
+  /* Reusable hairline divider with a node dot, echoing the automation-graph motif */
+  .node-divider {
+    @apply relative flex items-center justify-center;
+  }
+  .node-divider::before,
+  .node-divider::after {
+    content: "";
+    @apply h-px flex-1 bg-line;
+  }
+}
